@@ -21,3 +21,7 @@ func USD() *Currency {
 func EUR() *Currency {
 	return &Currency{code: "EUR", decimal: ",", thousand: ".", exponent: 2, symbol: "€", template: "$1"}
 }
+
+func (c *Currency) equals(currency *Currency) bool {
+	return c.code == currency.code
+}
