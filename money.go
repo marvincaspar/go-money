@@ -2,16 +2,13 @@ package money
 
 import "errors"
 
-// Amount stores the amounts used for calculations
-type Amount struct {
-	val int64
-}
-
 // Money stores amount and currency value
 type Money struct {
 	amount   *Amount
 	currency *Currency
 }
+
+var calc = &Calculator{}
 
 const (
 	GreaterThanCheckResult = 1
