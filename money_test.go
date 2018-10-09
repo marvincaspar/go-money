@@ -23,13 +23,13 @@ func TestMoney_New(t *testing.T) {
 func TestMoney_Amount(t *testing.T) {
 	m := New(100, USD())
 
-	if m.Amount() != 100 {
+	if m.Amount().Value() != 100 {
 		t.Errorf("Expected %d got %d", 1, m.Amount())
 	}
 
 	m = New(-100, USD())
 
-	if m.Amount() != -100 {
+	if m.Amount().Value() != -100 {
 		t.Errorf("Expected %d got %d", 1, m.Amount())
 	}
 }
@@ -98,8 +98,8 @@ func TestMoney_GreaterThan(t *testing.T) {
 		r, _ := m.GreaterThan(tc.money)
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be greater than %d, expect %t got %t", m.Amount(),
-				tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be greater than %d, expect %t got %t", m.Amount().Value(),
+				tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -119,8 +119,8 @@ func TestMoney_GreaterThanOrEqual(t *testing.T) {
 		r, _ := m.GreaterThanOrEqual(tc.money)
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be greater than or equal %d, expect %t got %t", m.Amount(),
-				tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be greater than or equal %d, expect %t got %t", m.Amount().Value(),
+				tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -139,8 +139,8 @@ func TestMoney_LessThan(t *testing.T) {
 		r, _ := m.LessThan(tc.money)
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be less than %d, expect %t got %t", m.Amount(),
-				tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be less than %d, expect %t got %t", m.Amount().Value(),
+				tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -160,8 +160,8 @@ func TestMoney_LessThanOrEqual(t *testing.T) {
 		r, _ := m.LessThanOrEqual(tc.money)
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be less than or equal %d, expect %t got %t", m.Amount(),
-				tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be less than or equal %d, expect %t got %t", m.Amount().Value(),
+				tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -180,7 +180,7 @@ func TestMoney_IsZero(t *testing.T) {
 		r := tc.money.IsZero()
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to zero, expect %t got %t", tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to zero, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -199,7 +199,7 @@ func TestMoney_IsPositive(t *testing.T) {
 		r := tc.money.IsPositive()
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be positive, expect %t got %t", tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be positive, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -218,7 +218,7 @@ func TestMoney_IsNegative(t *testing.T) {
 		r := tc.money.IsNegative()
 
 		if r != tc.expected {
-			t.Errorf("Expected %d to be negative, expect %t got %t", tc.money.Amount(), tc.expected, r)
+			t.Errorf("Expected %d to be negative, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }

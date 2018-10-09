@@ -4,3 +4,7 @@ package money
 type Amount struct {
 	val int64
 }
+
+func (a *Amount) Value() int64 {
+	return a.val
+}
