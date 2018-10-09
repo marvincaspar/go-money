@@ -30,8 +30,8 @@ func (m *Money) Currency() *Currency {
 }
 
 // Amount returns the amount value as int64
-func (m *Money) Amount() int64 {
-	return m.amount.val
+func (m *Money) Amount() *Amount {
+	return m.amount
 }
 
 // Equals checkes equality between two Money instances
@@ -86,17 +86,17 @@ func (m *Money) LessThanOrEqual(money *Money) (bool, error) {
 
 // IsZero returns boolean of whether the value of Money is equals to zero
 func (m *Money) IsZero() bool {
-	return m.Amount() == 0
+	return m.Amount().val == 0
 }
 
 // IsPositive returns boolean of whether the value of Money is positive
 func (m *Money) IsPositive() bool {
-	return m.Amount() > 0
+	return m.Amount().val > 0
 }
 
 // IsNegative returns boolean of whether the value of Money is negative
 func (m *Money) IsNegative() bool {
-	return m.Amount() < 0
+	return m.Amount().val < 0
 }
 
 func (m *Money) assertSameCurrency(money *Money) error {
@@ -108,9 +108,11 @@ func (m *Money) assertSameCurrency(money *Money) error {
 }
 
 func (m *Money) compare(money *Money) int {
-	if m.Amount() > money.Amount() {
+	if m.Amount().val > money.Amount().val {
 		return GreaterThanCheckResult
-	} else if m.Amount() < money.Amount() {
+	}
+
+	if m.Amount().val < money.Amount().val {
 		return LessThanCheckResult
 	}
 
