@@ -8,7 +8,7 @@ type Money struct {
 	currency *Currency
 }
 
-var calc = &Calculator{}
+var calc = &calculator{}
 
 const (
 	GreaterThanCheckResult = 1
@@ -34,6 +34,70 @@ func (m *Money) Amount() *Amount {
 	return m.amount
 }
 
+// Add returns new Money struct with value representing sum of Self and Other Money
+func (m *Money) Add(om *Money) (*Money, error) {
+	if err := m.assertSameCurrency(om); err != nil {
+		return nil, err
+	}
+
+	return &Money{amount: calc.add(m.Amount(), om.Amount()), currency: m.currency}, nil
+}
+
+// Subtract returns new Money struct with value representing difference of Self and Other Money
+func (m *Money) Subtract(om *Money) (*Money, error) {
+	if err := m.assertSameCurrency(om); err != nil {
+		return nil, err
+	}
+
+	return &Money{amount: calc.subtract(m.Amount(), om.Amount()), currency: m.currency}, nil
+}
+
+// Multiply returns new Money struct with value representing Self multiplied value by multiplier
+func (m *Money) Multiply(mul int64) *Money {
+	return &Money{amount: calc.multiply(m.Amount(), mul), currency: m.currency}
+}
+
+// Allocate returns slice of Money structs with split Self value in given ratios.
+// It lets split money by given ratios without losing pennies and as Split operations distributes
+// leftover pennies amongst the parties with round-robin principle.
+func (m *Money) Allocate(rs ...int) ([]*Money, error) {
+	if len(rs) == 0 {
+		return nil, errors.New("No ratios specified")
+	}
+
+	// Calculate total of ratios
+	var total int
+	for _, r := range rs {
+		total += r
+	}
+
+	var remainder = m.Amount().Value()
+	var ms []*Money
+	for _, r := range rs {
+		m := &Money{
+			amount:   calc.allocate(m.Amount(), r, total),
+			currency: m.currency,
+		}
+
+		ms = append(ms, m)
+		remainder -= m.Amount().Value()
+	}
+
+	for i := 0; i < int(remainder); i++ {
+		ms[i] = &Money{
+			amount:   calc.add(ms[i].Amount(), &Amount{1}),
+			currency: ms[i].Currency(),
+		}
+	}
+
+	return ms, nil
+}
+
+// SameCurrency checks if the given Money is equal by currency
+func (m *Money) SameCurrency(money *Money) bool {
+	return m.currency.equals(money.currency)
+}
+
 // Equals checkes equality between two Money instances
 func (m *Money) Equals(money *Money) (bool, error) {
 	if err := m.assertSameCurrency(money); err != nil {
@@ -41,11 +105,6 @@ func (m *Money) Equals(money *Money) (bool, error) {
 	}
 
 	return m.compare(money) == 0, nil
-}
-
-// SameCurrency checks if the given Money is equal by currency
-func (m *Money) SameCurrency(money *Money) bool {
-	return m.currency.equals(money.currency)
 }
 
 // GreaterThan checks whether the value of Money is greater than the other
@@ -86,17 +145,17 @@ func (m *Money) LessThanOrEqual(money *Money) (bool, error) {
 
 // IsZero returns boolean of whether the value of Money is equals to zero
 func (m *Money) IsZero() bool {
-	return m.Amount().val == 0
+	return m.Amount().Value() == 0
 }
 
 // IsPositive returns boolean of whether the value of Money is positive
 func (m *Money) IsPositive() bool {
-	return m.Amount().val > 0
+	return m.Amount().Value() > 0
 }
 
 // IsNegative returns boolean of whether the value of Money is negative
 func (m *Money) IsNegative() bool {
-	return m.Amount().val < 0
+	return m.Amount().Value() < 0
 }
 
 func (m *Money) assertSameCurrency(money *Money) error {
@@ -108,11 +167,11 @@ func (m *Money) assertSameCurrency(money *Money) error {
 }
 
 func (m *Money) compare(money *Money) int {
-	if m.Amount().val > money.Amount().val {
+	if m.Amount().Value() > money.Amount().Value() {
 		return GreaterThanCheckResult
 	}
 
-	if m.Amount().val < money.Amount().val {
+	if m.Amount().Value() < money.Amount().Value() {
 		return LessThanCheckResult
 	}
 
