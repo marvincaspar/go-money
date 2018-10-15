@@ -35,21 +35,21 @@ func (m *Money) Amount() *Amount {
 }
 
 // Add returns new Money struct with value representing sum of Self and Other Money
-func (m *Money) Add(om *Money) (*Money, error) {
-	if err := m.assertSameCurrency(om); err != nil {
+func (m *Money) Add(money *Money) (*Money, error) {
+	if err := m.assertSameCurrency(money); err != nil {
 		return nil, err
 	}
 
-	return &Money{amount: calc.add(m.Amount(), om.Amount()), currency: m.currency}, nil
+	return &Money{amount: calc.add(m.Amount(), money.Amount()), currency: m.currency}, nil
 }
 
 // Subtract returns new Money struct with value representing difference of Self and Other Money
-func (m *Money) Subtract(om *Money) (*Money, error) {
-	if err := m.assertSameCurrency(om); err != nil {
+func (m *Money) Subtract(money *Money) (*Money, error) {
+	if err := m.assertSameCurrency(money); err != nil {
 		return nil, err
 	}
 
-	return &Money{amount: calc.subtract(m.Amount(), om.Amount()), currency: m.currency}, nil
+	return &Money{amount: calc.subtract(m.Amount(), money.Amount()), currency: m.currency}, nil
 }
 
 // Multiply returns new Money struct with value representing Self multiplied value by multiplier
@@ -91,11 +91,6 @@ func (m *Money) Allocate(rs ...int) ([]*Money, error) {
 	}
 
 	return ms, nil
-}
-
-// SameCurrency checks if the given Money is equal by currency
-func (m *Money) SameCurrency(money *Money) bool {
-	return m.currency.equals(money.currency)
 }
 
 // Equals checkes equality between two Money instances
@@ -143,23 +138,8 @@ func (m *Money) LessThanOrEqual(money *Money) (bool, error) {
 	return m.compare(money) <= EqualCheckResult, nil
 }
 
-// IsZero returns boolean of whether the value of Money is equals to zero
-func (m *Money) IsZero() bool {
-	return m.Amount().Value() == 0
-}
-
-// IsPositive returns boolean of whether the value of Money is positive
-func (m *Money) IsPositive() bool {
-	return m.Amount().Value() > 0
-}
-
-// IsNegative returns boolean of whether the value of Money is negative
-func (m *Money) IsNegative() bool {
-	return m.Amount().Value() < 0
-}
-
 func (m *Money) assertSameCurrency(money *Money) error {
-	if !m.SameCurrency(money) {
+	if !m.currency.equals(money.currency) {
 		return errors.New("Currency don't match")
 	}
 

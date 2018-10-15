@@ -67,26 +67,6 @@ func TestMoney_Equals(t *testing.T) {
 	}
 }
 
-func TestMoney_SameCurrency(t *testing.T) {
-	m := New(0, EUR())
-	tcs := []struct {
-		money    *Money
-		expected bool
-	}{
-		{New(0, EUR()), true},
-		{New(0, USD()), false},
-	}
-
-	for _, tc := range tcs {
-		r := m.SameCurrency(tc.money)
-
-		if r != tc.expected {
-			t.Errorf("Expected %s same currency %s, expect %t got %t", m.Currency().code,
-				tc.money.Currency().code, tc.expected, r)
-		}
-	}
-}
-
 func TestMoney_GreaterThan(t *testing.T) {
 	m := New(10, EUR())
 	tcs := []struct {
@@ -165,63 +145,6 @@ func TestMoney_LessThanOrEqual(t *testing.T) {
 		if r != tc.expected {
 			t.Errorf("Expected %d to be less than or equal %d, expect %t got %t", m.Amount().Value(),
 				tc.money.Amount().Value(), tc.expected, r)
-		}
-	}
-}
-
-func TestMoney_IsZero(t *testing.T) {
-	tcs := []struct {
-		money    *Money
-		expected bool
-	}{
-		{New(-10, EUR()), false},
-		{New(0, EUR()), true},
-		{New(10, EUR()), false},
-	}
-
-	for _, tc := range tcs {
-		r := tc.money.IsZero()
-
-		if r != tc.expected {
-			t.Errorf("Expected %d to zero, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
-		}
-	}
-}
-
-func TestMoney_IsPositive(t *testing.T) {
-	tcs := []struct {
-		money    *Money
-		expected bool
-	}{
-		{New(-10, EUR()), false},
-		{New(0, EUR()), false},
-		{New(10, EUR()), true},
-	}
-
-	for _, tc := range tcs {
-		r := tc.money.IsPositive()
-
-		if r != tc.expected {
-			t.Errorf("Expected %d to be positive, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
-		}
-	}
-}
-
-func TestMoney_IsNegative(t *testing.T) {
-	tcs := []struct {
-		money    *Money
-		expected bool
-	}{
-		{New(-10, EUR()), true},
-		{New(0, EUR()), false},
-		{New(10, EUR()), false},
-	}
-
-	for _, tc := range tcs {
-		r := tc.money.IsNegative()
-
-		if r != tc.expected {
-			t.Errorf("Expected %d to be negative, expect %t got %t", tc.money.Amount().Value(), tc.expected, r)
 		}
 	}
 }
@@ -331,6 +254,7 @@ func TestMoney_Allocate(t *testing.T) {
 	}{
 		{100, []int{50, 50}, []int64{50, 50}},
 		{100, []int{30, 30, 30}, []int64{34, 33, 33}},
+		{200, []int{1, 1, 1}, []int64{67, 67, 66}},
 		{5, []int{3, 7}, []int64{2, 3}},
 	}
 
