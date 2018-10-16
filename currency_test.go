@@ -18,7 +18,6 @@ func TestCurrency_Create(t *testing.T) {
 	}
 }
 
-
 func TestCurrency_Add(t *testing.T) {
 	c := Add("BTC", ".", "", 8, "BTC", "1BTC")
 

@@ -11,9 +11,9 @@ type Money struct {
 var calc = &calculator{}
 
 const (
-	GreaterThanCheckResult = 1
-	EqualCheckResult       = 0
-	LessThanCheckResult    = -1
+	greaterThanCheckResult = 1
+	equalCheckResult       = 0
+	lessThanCheckResult    = -1
 )
 
 // New creates and returns a new Money instance
@@ -108,7 +108,7 @@ func (m *Money) GreaterThan(money *Money) (bool, error) {
 		return false, err
 	}
 
-	return m.compare(money) == GreaterThanCheckResult, nil
+	return m.compare(money) == greaterThanCheckResult, nil
 }
 
 // GreaterThanOrEqual checks whether the value of Money is greater or equal than the other
@@ -117,7 +117,7 @@ func (m *Money) GreaterThanOrEqual(money *Money) (bool, error) {
 		return false, err
 	}
 
-	return m.compare(money) >= EqualCheckResult, nil
+	return m.compare(money) >= equalCheckResult, nil
 }
 
 // LessThan checks whether the value of Money is less than the other
@@ -126,7 +126,7 @@ func (m *Money) LessThan(money *Money) (bool, error) {
 		return false, err
 	}
 
-	return m.compare(money) == LessThanCheckResult, nil
+	return m.compare(money) == lessThanCheckResult, nil
 }
 
 // LessThanOrEqual checks whether the value of Money is less or equal than the other
@@ -135,9 +135,10 @@ func (m *Money) LessThanOrEqual(money *Money) (bool, error) {
 		return false, err
 	}
 
-	return m.compare(money) <= EqualCheckResult, nil
+	return m.compare(money) <= equalCheckResult, nil
 }
 
+// Display returns a formatted amount string for the current currency
 func (m *Money) Display() string {
 	return m.currency.Format(m.Amount().Value())
 }
@@ -152,12 +153,12 @@ func (m *Money) assertSameCurrency(money *Money) error {
 
 func (m *Money) compare(money *Money) int {
 	if m.Amount().Value() > money.Amount().Value() {
-		return GreaterThanCheckResult
+		return greaterThanCheckResult
 	}
 
 	if m.Amount().Value() < money.Amount().Value() {
-		return LessThanCheckResult
+		return lessThanCheckResult
 	}
 
-	return EqualCheckResult
+	return equalCheckResult
 }

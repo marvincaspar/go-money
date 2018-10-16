@@ -321,20 +321,16 @@ func TestMoney_Comparison(t *testing.T) {
 
 func TestMoney_Display(t *testing.T) {
 	euro := New(100, EUR())
-
 	if r := euro.Display(); r != "€1,00" {
 		t.Errorf("Expected money display to be %s got %s", "€1,00", r)
 	}
 
 	dollar := New(-200000, USD())
-
 	if r := dollar.Display(); r != "-$2,000.00" {
 		t.Errorf("Expected money display to be %s got %s", "-$2,000.00", r)
 	}
 
-
 	cent := New(1, EUR())
-
 	if r := cent.Display(); r != "€0,01" {
 		t.Errorf("Expected money display to be %s got %s", "€0,01", r)
 	}

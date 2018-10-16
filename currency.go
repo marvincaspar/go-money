@@ -1,49 +1,48 @@
 package money
 
-import(
+import (
 	"strconv"
 	"strings"
 )
 
 // Currency represents the currency information for formatting
 type Currency struct {
-	code     string
+	code              string
 	decimalDelimiter  string
 	thousandDelimiter string
-	exponent int
-	symbol   string
-	template string
+	exponent          int
+	symbol            string
+	template          string
 }
 
 // https://en.wikipedia.org/wiki/ISO_4217
 
-// USD creates and returns a new Currenty instance for USD
+// USD creates and returns a new Currency instance for USD
 func USD() *Currency {
 	return &Currency{code: "USD", decimalDelimiter: ".", thousandDelimiter: ",", exponent: 2, symbol: "$", template: "$1"}
 }
 
-// EUR creates and returns a new Currenty instance for EUR
+// EUR creates and returns a new Currency instance for EUR
 func EUR() *Currency {
 	return &Currency{code: "EUR", decimalDelimiter: ",", thousandDelimiter: ".", exponent: 2, symbol: "€", template: "$1"}
 }
 
-// Add creates and returns a new Currenty instance
+// Add creates and returns a new Currency instance
 func Add(code string, decimalDelimiter string, thousandDelimiter string, exponent int, symbol string, template string) *Currency {
 	return &Currency{
-		code: code, 
-		decimalDelimiter: decimalDelimiter, 
-		thousandDelimiter: thousandDelimiter, 
-		exponent: exponent, 
-		symbol: symbol, 
-		template: template,
+		code:              code,
+		decimalDelimiter:  decimalDelimiter,
+		thousandDelimiter: thousandDelimiter,
+		exponent:          exponent,
+		symbol:            symbol,
+		template:          template,
 	}
 }
 
-// Formatter returns currency formatter representing
-// used currency structure
+// Format returns a formatted string for the given amount value
 func (c *Currency) Format(amount int64) string {
 	positiveAmount := amount
-	if(amount < 0) {
+	if amount < 0 {
 		positiveAmount = amount * -1
 	}
 	result := strconv.FormatInt(positiveAmount, 10)

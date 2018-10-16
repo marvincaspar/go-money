@@ -5,6 +5,7 @@ type Amount struct {
 	val int64
 }
 
+// Value returns the amount value
 func (a *Amount) Value() int64 {
 	return a.val
 }
