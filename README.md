@@ -1,5 +1,9 @@
 # Go Money
 
+[![Build Status](https://travis-ci.org/mc388/go-money.svg?branch=master)](https://travis-ci.org/mc388/go-money)
+[![GitHub release](https://img.shields.io/github/release/mc388/go-money.svg)](https://github.com/mc388/go-money/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Go libraray to make working with money safer and easier!
 
 ```go
