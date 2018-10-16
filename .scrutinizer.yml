@@ -1,0 +1,20 @@
+checks:
+    go: true
+build:
+  environment:
+    go: go1.9.2
+  nodes:
+    analysis:
+      tests:
+        override:
+          - go-scrutinizer-run
+          - govet-run
+          - golint-run
+    coverage:
+      tests:
+        override:
+          -
+            command: go test -coverprofile=cover.out
+            coverage:
+              file: 'cover.out'
+              format: 'go-cc'

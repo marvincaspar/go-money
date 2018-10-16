@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mc388/go-money.svg?branch=master)](https://travis-ci.org/mc388/go-money)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mc388/go-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/mc388/go-money/badge.svg?branch=master)](https://coveralls.io/github/mc388/go-money?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/mc388/go-money/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mc388/go-money)
 
 
@@ -14,14 +14,14 @@ package main
 import "github.com/mc388/go-money"
 
 func main() {
-    oneEuro := money.New(100, EUR())
+    oneEuro := money.New(100, money.EUR())
     twoEuro, err := oneEuro.Add(oneEuro)
 
     if err != nil {
         log.Fatal(err)
     }
 
-    parties, err := twoEuro.Allocate([1, 1, 1])
+    parties, err := twoEuro.Allocate(1, 1, 1)
 
     if err != nil {
         log.Fatal(err)
@@ -47,7 +47,7 @@ go get github.com/mc388/go-money
 Initialze Money by using the smalles unit (e.g. 100 represents 1€) and one of the given currency factories.
 
 ```go
-euro := money.New(100, EUR())
+euro := money.New(100, money.EUR())
 ```
 
 ### Calculations
@@ -64,8 +64,8 @@ Use `Add(money)` to perform additions.
 
 
 ```go
-oneEuro := money.New(100, EUR())
-twoEuro := money.New(200, EUR())
+oneEuro := money.New(100, money.EUR())
+twoEuro := money.New(200, money.EUR())
 threeEuro, err := oneEuro.Add(twoEuro) // €3, nil
 }
 ```
@@ -76,8 +76,8 @@ Use `Subtract(money)` to perform substractions.
 
 
 ```go
-threeEuro := money.New(300, EUR())
-twoEuro := money.New(200, EUR())
+threeEuro := money.New(300, money.EUR())
+twoEuro := money.New(200, money.EUR())
 oneEuro, err := threeEuro.Subtract(twoEuro) // €1, nil
 }
 ```
@@ -88,19 +88,19 @@ Use `Multiply(multiplicator)` to perform multiplications.
 
 
 ```go
-twoEuro := money.New(200, EUR())
+twoEuro := money.New(200, money.EUR())
 eightEuro, err := twoEuro.Multiply(4) // €8, nil
 }
 ```
 
 #### Allocate
 
-Use `Allocate([...ratioX])` to allocate money by a given rations without loosing any cent.
+Use `Allocate(...ratioX)` to allocate money by a given rations without loosing any cent.
 
 
 ```go
-oneEuro := money.New(100, EUR())
-parties, err := oneEuro.Allocate([50, 50])
+oneEuro := money.New(100, money.EUR())
+parties, err := oneEuro.Allocate(50, 50)
 
 if err != nil {
     log.Fatal(err)
@@ -113,8 +113,8 @@ parties[1].Display() // €0.50
 
 
 ```go
-oneEuro := money.New(100, EUR())
-parties, err := oneEuro.Allocate([1, 1, 1])
+oneEuro := money.New(100, money.EUR())
+parties, err := oneEuro.Allocate(1, 1, 1)
 
 if err != nil {
     log.Fatal(err)
@@ -138,9 +138,9 @@ The following comparion methods are available:
 Comparison can only performe between the same currency.
 
 ```go
-oneEuro := money.New(100, EUR())
-twoEuro := money.New(200, EUR())
-oneDollar := money.New(100, USD())
+oneEuro := money.New(100, money.EUR())
+twoEuro := money.New(200, money.EUR())
+oneDollar := money.New(100, money.USD())
 
 result1, err := oneEuro.GreaterThan(twoEuro) // false, nil
 result2, err := oneEuro.LessThan(twoEuro) // true, nil
