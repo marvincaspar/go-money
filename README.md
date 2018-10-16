@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/mc388/go-money.svg?branch=master)](https://travis-ci.org/mc388/go-money)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mc388/go-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/mc388/go-money/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mc388/go-money)](https://goreportcard.com/report/github.com/mc388/go-money)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mc388/go-money)
 
 
