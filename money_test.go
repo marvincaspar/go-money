@@ -284,37 +284,58 @@ func TestMoney_Allocate2(t *testing.T) {
 }
 
 func TestMoney_Comparison(t *testing.T) {
-	pound := New(100, USD())
-	twoPounds := New(200, USD())
-	twoEuros := New(200, EUR())
+	dollar := New(100, USD())
+	twoDollar := New(200, USD())
+	twoEuro := New(200, EUR())
 
-	if r, err := pound.GreaterThan(twoPounds); err != nil || r {
-		t.Errorf("Expected %d Greater Than %d == %t got %t", pound.Amount().Value(),
-			twoPounds.Amount().Value(), false, r)
+	if r, err := dollar.GreaterThan(twoDollar); err != nil || r {
+		t.Errorf("Expected %d Greater Than %d == %t got %t", dollar.Amount().Value(),
+			twoDollar.Amount().Value(), false, r)
 	}
 
-	if r, err := pound.LessThan(twoPounds); err != nil || !r {
-		t.Errorf("Expected %d Less Than %d == %t got %t", pound.Amount().Value(),
-			twoPounds.Amount().Value(), true, r)
+	if r, err := dollar.LessThan(twoDollar); err != nil || !r {
+		t.Errorf("Expected %d Less Than %d == %t got %t", dollar.Amount().Value(),
+			twoDollar.Amount().Value(), true, r)
 	}
 
-	if r, err := pound.LessThan(twoEuros); err == nil || r {
+	if r, err := dollar.LessThan(twoEuro); err == nil || r {
 		t.Error("Expected err")
 	}
 
-	if r, err := pound.GreaterThan(twoEuros); err == nil || r {
+	if r, err := dollar.GreaterThan(twoEuro); err == nil || r {
 		t.Error("Expected err")
 	}
 
-	if r, err := pound.Equals(twoEuros); err == nil || r {
+	if r, err := dollar.Equals(twoEuro); err == nil || r {
 		t.Error("Expected err")
 	}
 
-	if r, err := pound.LessThanOrEqual(twoEuros); err == nil || r {
+	if r, err := dollar.LessThanOrEqual(twoEuro); err == nil || r {
 		t.Error("Expected err")
 	}
 
-	if r, err := pound.GreaterThanOrEqual(twoEuros); err == nil || r {
+	if r, err := dollar.GreaterThanOrEqual(twoEuro); err == nil || r {
 		t.Error("Expected err")
+	}
+}
+
+func TestMoney_Display(t *testing.T) {
+	euro := New(100, EUR())
+
+	if r := euro.Display(); r != "€1,00" {
+		t.Errorf("Expected money display to be %s got %s", "€1,00", r)
+	}
+
+	dollar := New(-200000, USD())
+
+	if r := dollar.Display(); r != "-$2,000.00" {
+		t.Errorf("Expected money display to be %s got %s", "-$2,000.00", r)
+	}
+
+
+	cent := New(1, EUR())
+
+	if r := cent.Display(); r != "€0,01" {
+		t.Errorf("Expected money display to be %s got %s", "€0,01", r)
 	}
 }

@@ -138,6 +138,10 @@ func (m *Money) LessThanOrEqual(money *Money) (bool, error) {
 	return m.compare(money) <= EqualCheckResult, nil
 }
 
+func (m *Money) Display() string {
+	return m.currency.Format(m.Amount().Value())
+}
+
 func (m *Money) assertSameCurrency(money *Money) error {
 	if !m.currency.equals(money.currency) {
 		return errors.New("Currency don't match")
