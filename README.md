@@ -1,8 +1,10 @@
 # Go Money
 
 [![Build Status](https://travis-ci.org/mc388/go-money.svg?branch=master)](https://travis-ci.org/mc388/go-money)
-[![GitHub release](https://img.shields.io/github/release/mc388/go-money.svg)](https://github.com/mc388/go-money/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mc388/go-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/mc388/go-money/badge.svg?branch=master)](https://coveralls.io/github/mc388/go-money?branch=master)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mc388/go-money)
+
 
 Go libraray to make working with money safer and easier!
 
