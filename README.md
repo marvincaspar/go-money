@@ -1,10 +1,10 @@
 # Go Money
 
-[![Build Status](https://travis-ci.org/mc388/go-money.svg?branch=master)](https://travis-ci.org/mc388/go-money)
+[![Build Status](https://travis-ci.org/marvincaspar/go-money.svg?branch=master)](https://travis-ci.org/marvincaspar/go-money)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mc388/go-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/mc388/go-money/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mc388/go-money/?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/mc388/go-money)](https://goreportcard.com/report/github.com/mc388/go-money)
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mc388/go-money)
+[![Go Report Card](https://goreportcard.com/badge/github.com/marvincaspar/go-money)](https://goreportcard.com/report/github.com/marvincaspar/go-money)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/marvincaspar/go-money)
 
 
 Go libraray to make working with money safer and easier!
@@ -12,7 +12,7 @@ Go libraray to make working with money safer and easier!
 ```go
 package main
 
-import "github.com/mc388/go-money"
+import "github.com/marvincaspar/go-money"
 
 func main() {
     oneEuro := money.New(100, money.EUR())
