@@ -1,1 +1,1 @@
-module github.com/mc388/go-money
+module github.com/marvincaspar/go-money
